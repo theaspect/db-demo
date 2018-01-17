@@ -11,3 +11,16 @@ See also [docker plugin](https://spring.io/guides/gs/spring-boot-docker/#_summar
 http://localhost:8080/
 http://localhost:8080/jdbc
 
+# TODO
+* Make h2 postgres compatible
+* Hibernate
+* HQL
+* Collections
+* Add postgres to docker
+* Make two config files h2/postgres
+* Add pgsql
+* Generate data
+* Create data populator
+* Load queries from file
+* Add Elastic search
+* Add mongodb?
