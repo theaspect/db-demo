@@ -42,11 +42,15 @@ repositories {
 }
 
 dependencies {
+    // Web
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
     // DB
     compile('org.springframework.boot:spring-boot-starter-jdbc')
     runtime('com.h2database:h2')
+    // Flyway will reuse default datasource
+    // See also https://flywaydb.org/documentation/migrations
     compile('org.flywaydb:flyway-core')
 
 //    compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
