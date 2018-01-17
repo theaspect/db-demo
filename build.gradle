@@ -1,37 +1,54 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.9.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+
+        // Build artefact directly into docker
+        classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.17.2"
+    }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.palantir.docker'
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '0.1'
 sourceCompatibility = 1.8
 
-repositories {
-	mavenCentral()
+jar {
+    baseName = 'demo-docker'
 }
 
+docker {
+    name "${project.group}/${jar.baseName}"
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.archiveName}"])
+}
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('org.springframework.data:spring-data-rest-hal-browser')
-	compile('org.flywaydb:flyway-core')
-	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('com.h2database:h2')
-	runtime('org.postgresql:postgresql')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+//    compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+//    compile('org.springframework.boot:spring-boot-starter-data-rest')
+//    compile('org.springframework.data:spring-data-rest-hal-browser')
+//    compile('org.flywaydb:flyway-core')
+//    compile('org.springframework.boot:spring-boot-starter-jdbc')
+//
+//    runtime('com.h2database:h2')
+//    runtime('org.postgresql:postgresql')
+//    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
