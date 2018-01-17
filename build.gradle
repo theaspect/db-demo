@@ -28,7 +28,7 @@ version = '0.1'
 sourceCompatibility = 1.8
 
 jar {
-    baseName = 'demo-docker'
+    baseName = 'db-demo'
 }
 
 docker {
