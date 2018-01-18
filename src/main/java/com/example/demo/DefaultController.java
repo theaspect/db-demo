@@ -1,7 +1,9 @@
 package com.example.demo;
 
+import com.example.demo.domain.Department;
 import com.example.demo.domain.Employee;
-import com.example.demo.jdbc.JdbcRequest;
+import com.example.demo.request.JdbcRequest;
+import com.example.demo.request.JpaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,9 @@ public class DefaultController {
     @Autowired
     JdbcRequest jdbcRequest;
 
+    @Autowired
+    JpaRequest jpaRequest;
+
     @RequestMapping("/page")
     public String page() {
         return "page";
@@ -35,5 +40,29 @@ public class DefaultController {
     @RequestMapping(path = "/jdbc", method = RequestMethod.GET)
     public @ResponseBody List<Employee> jdbc() {
         return jdbcRequest.getJosh();
+    }
+
+    @RequestMapping(path = "/repository", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Department> repository() {
+        return jpaRequest.getDepartments();
+    }
+
+    @RequestMapping(path = "/hql", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Employee> hql() {
+        return jpaRequest.getEmployees();
+    }
+
+    @RequestMapping(path = "/criteria", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Department> criteria(@RequestParam(defaultValue = "0") Long id) {
+        return jpaRequest.getDepartmentsByManager(id);
+    }
+
+    @RequestMapping(path = "/nsql", method = RequestMethod.GET)
+    public @ResponseBody
+    Employee nsql(@RequestParam(defaultValue = "0") Long id) {
+        return jpaRequest.getManagerByDepartment(id);
     }
 }

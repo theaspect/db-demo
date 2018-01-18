@@ -1,11 +1,25 @@
 package com.example.demo.domain;
 
-public class Employee {
-    Long id;
-    String firstName;
-    String lastName;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-    Department department;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
+// Break JSON recursion
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Employee {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String firstName;
+    private String lastName;
+
+    @ManyToOne
+    private Department department;
 
     public Employee() {
     }
