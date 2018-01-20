@@ -24,3 +24,18 @@ http://localhost:8080/jdbc
 * Load queries from file
 * Add Elastic search
 * Add mongodb?
+
+
+# Plan
+Вводная
+Простой пример
+CRUD - SQL
+CRUD - ORM
+N+1
+Lazy Init
+Criteria
+Сложный SQL
+Collection
+Elastic
+
+?ETL
