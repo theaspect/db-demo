@@ -55,7 +55,7 @@ public class EmployeeJdbcDao {
         return flag;
     }
 
-    public String getById(int id) throws Exception {
+    public String getById(int empNo) throws Exception {
         String sql = "select * from emp where empno=" + empNo;
         StringBuilder sb = new StringBuilder();
         Connection con = null;
@@ -85,7 +85,7 @@ public class EmployeeJdbcDao {
         return sb.toString();
     }
 
-    public String getAll(int id) throws Exception {
+    public String getAll(int empNo) throws Exception {
         String sql = "select * from emp where empno=" + empNo;
         StringBuilder sb = new StringBuilder();
         Connection con = null;

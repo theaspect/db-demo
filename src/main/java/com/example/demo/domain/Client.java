@@ -1,25 +1,26 @@
 package com.example.demo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Client {
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
-    String name;
+    private String name;
 
-    String street;
-    String city;
-    String state;
-    String zipcode;
+    private String street;
+    private String city;
+    private String state;
+    private String zipcode;
 
     @ManyToOne
-    Employee account;
+    private Employee account;
+
+    @OneToMany(mappedBy = "client")
+    private List<Contract> contracts;
 
     public Long getId() {
         return id;
@@ -75,5 +76,13 @@ public class Client {
 
     public void setAccount(Employee account) {
         this.account = account;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 }
