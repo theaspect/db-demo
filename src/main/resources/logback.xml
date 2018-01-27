@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <!-- BEGIN base.xml CONFIG OVERRIDE -->
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <!--<property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>-->
+    <!--<include resource="org/springframework/boot/logging/logback/console-appender.xml" />-->
+    <!--<include resource="org/springframework/boot/logging/logback/file-appender.xml" />-->
+    <!--<root level="INFO">-->
+        <!--<appender-ref ref="CONSOLE" />-->
+        <!--<appender-ref ref="FILE" />-->
+    <!--</root>-->
+    <!-- END base.xml CONFIG OVERRIDE -->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="com.example.demo.SqlLogFilter" />
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <root>
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <logger name="root" level="INFO"/>
     <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
 </configuration>

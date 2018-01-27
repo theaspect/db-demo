@@ -6,9 +6,9 @@ CREATE TABLE organisation (
 );
 
 INSERT INTO organisation(name) VALUES
-  ('GoodLine'),
-  ('It2g'),
-  ('Alfastrahovaniye');
+  ('BadCurve'),
+  ('Gfromit'),
+  ('OmegaInsurance');
 
 -- SET MODE PostgreSQL;
 -- DROP TABLE department IF EXISTS;

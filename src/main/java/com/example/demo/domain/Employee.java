@@ -2,11 +2,11 @@ package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,5 +23,8 @@ public class Employee {
 
     @ManyToOne
     private Department department;
+
+    @OneToMany(mappedBy = "account")
+    private Set<Client> clients = new HashSet<>();
 
 }

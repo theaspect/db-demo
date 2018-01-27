@@ -1,9 +1,12 @@
 package com.example.demo.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity
 public class Organisation {
 
@@ -13,33 +16,7 @@ public class Organisation {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Department> departments;
-
-    public Organisation() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Collection<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
-    }
+    //@OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Department> departments = new HashSet<>();
 }

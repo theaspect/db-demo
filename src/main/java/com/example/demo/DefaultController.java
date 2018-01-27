@@ -2,8 +2,8 @@ package com.example.demo;
 
 import com.example.demo.domain.Department;
 import com.example.demo.domain.Employee;
-import com.example.demo.request.JdbcRequest;
-import com.example.demo.request.JpaRequest;
+import com.example.demo.request.dao.JdbcRequest;
+import com.example.demo.request.dao.JpaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

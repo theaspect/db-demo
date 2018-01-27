@@ -1,16 +1,16 @@
 package com.example.demo.request.slide_1_crud;
 
 import com.example.demo.domain.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Collection;
 
 @SuppressWarnings("ALL")
 public class EmloyeeJpaDao {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager em;
 
     public void save(Employee employee) {

@@ -1,8 +1,7 @@
-package com.example.demo.request;
+package com.example.demo.request.dao;
 
 import com.example.demo.domain.Department;
 import com.example.demo.domain.Employee;
-import com.example.demo.request.dao.DepartmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

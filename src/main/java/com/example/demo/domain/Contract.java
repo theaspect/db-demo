@@ -4,9 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,5 +28,5 @@ public class Contract {
     private Employee account;
 
     @OneToMany(mappedBy = "contract")
-    private List<Transaction> transactions = new ArrayList<>();
+    private Set<Transaction> transactions = new HashSet<>();
 }

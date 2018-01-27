@@ -1,13 +1,10 @@
-package com.example.demo.request;
+package com.example.demo.request.dao;
 
-import com.example.demo.domain.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * Based on https://spring.io/guides/gs/relational-data-access/
