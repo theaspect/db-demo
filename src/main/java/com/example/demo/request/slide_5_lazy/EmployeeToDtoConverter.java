@@ -12,7 +12,6 @@ public class EmployeeToDtoConverter {
         dto.setId(employee.getId());
         dto.setFirstName(employee.getFirstName());
         dto.setLastName(employee.getLastName());
-        dto.setDepartmentId(employee.getDepartment().getId());
 
         return dto;
     }

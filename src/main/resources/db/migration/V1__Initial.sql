@@ -1,17 +1,39 @@
 -- fake data generated from http://www.fakeaddressgenerator.com
 
+CREATE TABLE organisation (
+  id         BIGINT SERIAL PRIMARY KEY,
+  name       VARCHAR(255)
+);
+
+INSERT INTO organisation(name) VALUES
+  ('GoodLine'),
+  ('It2g'),
+  ('Alfastrahovaniye');
+
 -- SET MODE PostgreSQL;
 -- DROP TABLE department IF EXISTS;
 CREATE TABLE department (
   id         BIGINT SERIAL PRIMARY KEY,
-  name       VARCHAR(255),
-  manager_id BIGINT
+  organisation_id BIGINT,
+  name       VARCHAR(255)
 );
 
-INSERT INTO department(name) VALUES
-  ('Sales'),
-  ('Marketing'),
-  ('Development');
+INSERT INTO department(name, organisation_id) VALUES
+  ('Sales', 1),
+  ('Marketing', 1),
+  ('Development', 1),
+  ('Analysis', 1),
+  ('QA', 1),
+  ('Sales', 2),
+  ('Marketing', 2),
+  ('Development', 2),
+  ('Analysis', 2),
+  ('QA', 2),
+  ('Sales', 3),
+  ('Marketing', 3),
+  ('Development', 3),
+  ('Analysis', 3),
+  ('QA', 3);
 
 -- DROP TABLE employee IF EXISTS;
 CREATE TABLE employee(
@@ -21,19 +43,45 @@ CREATE TABLE employee(
   department_id BIGINT,
   CONSTRAINT "employee_department_id" FOREIGN KEY (department_id) REFERENCES department (id)
 );
---  Cyclic dependency
-ALTER TABLE department
-  ADD CONSTRAINT "department_manager_id" FOREIGN KEY (manager_id) REFERENCES employee (id);
 
 INSERT INTO employee(first_name, last_name, department_id) VALUES
  ('John', 'Woo', 1),
+ ('Pain', 'Filler', 1),
  ('Jeff', 'Dean', 2),
+ ('Tom', 'Noname', 2),
+ ('Fox', 'Mulder', 2),
  ('Josh', 'Bloch', 3),
- ('Josh', 'Long', 1);
+ ('Josh', 'Long', 1),
+ ('John', 'Doe', 4),
+ ('Any', 'Key', 4),
+ ('Max', 'Long', 5),
+ ('Max', 'Pain', 5),
+ ('John', 'Woo', 6),
+ ('Pain', 'Filler', 6),
+ ('Jeff', 'Dean', 7),
+ ('Tom', 'Noname', 7),
+ ('Fox', 'Mulder', 7),
+ ('Josh', 'Bloch', 8),
+ ('Josh', 'Long', 6),
+ ('John', 'Doe', 9),
+ ('Any', 'Key', 9),
+ ('Max', 'Long', 10),
+ ('Max', 'Pain', 10),
+ ('John', 'Woo', 11),
+ ('Pain', 'Filler', 11),
+ ('Jeff', 'Dean', 12),
+ ('Tom', 'Noname', 12),
+ ('Fox', 'Mulder', 12),
+ ('Josh', 'Bloch', 13),
+ ('Josh', 'Long', 11),
+ ('John', 'Doe', 14),
+ ('Any', 'Key', 14),
+ ('Max', 'Long', 15),
+ ('Max', 'Pain', 15);
 
-UPDATE department set manager_id = 1 where id = 1;
-UPDATE department set manager_id = 2 where id = 2;
-UPDATE department set manager_id = 1 where id = 3;
+-- UPDATE department set manager_id = 1 where id = 1;
+-- UPDATE department set manager_id = 2 where id = 2;
+-- UPDATE department set manager_id = 1 where id = 3;
 
 -- DROP TABLE client IF EXISTS;
 CREATE TABLE client (

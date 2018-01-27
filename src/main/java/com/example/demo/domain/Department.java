@@ -3,22 +3,25 @@ package com.example.demo.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 // Break JSON recursion
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Department {
+
     @Id
     @GeneratedValue
     private Long id;
     private String name;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Employee> employees;
+
     @ManyToOne
-    private Employee manager;
+    private Organisation organisation;
 
     public Department() {
     }
@@ -39,11 +42,19 @@ public class Department {
         this.name = name;
     }
 
-    public Employee getManager() {
-        return manager;
+    public Collection<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setManager(Employee manager) {
-        this.manager = manager;
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public Organisation getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(Organisation organisation) {
+        this.organisation = organisation;
     }
 }

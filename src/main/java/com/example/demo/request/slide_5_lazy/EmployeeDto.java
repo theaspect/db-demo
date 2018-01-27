@@ -5,7 +5,6 @@ public class EmployeeDto {
     private Long id;
     private String firstName;
     private String lastName;
-    private Long departmentId;
 
     public EmployeeDto() {
     }
@@ -32,13 +31,5 @@ public class EmployeeDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Long getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
     }
 }
