@@ -53,8 +53,8 @@ public class EmployeeJdbcDao {
         return flag;
     }
 
-    public String getById(int id) throws Exception {
-        String sql = "select * from emp where empno=" + empNo;
+    public String getById(Long empno) throws Exception {
+        String sql = "select * from emp where empno=" + empno;
         StringBuilder sb = new StringBuilder();
         Connection con = null;
         try {
@@ -83,8 +83,8 @@ public class EmployeeJdbcDao {
         return sb.toString();
     }
 
-    public String getAll(int id) throws Exception {
-        String sql = "select * from emp where empno=" + empNo;
+    public String getAll(Long empno) throws Exception {
+        String sql = "select * from emp where empno=" + empno;
         StringBuilder sb = new StringBuilder();
         Connection con = null;
         try {
@@ -113,7 +113,7 @@ public class EmployeeJdbcDao {
         return sb.toString();
     }
 
-    public boolean delete(int empno) throws Exception {
+    public boolean delete(Long empno) throws Exception {
         String sql = "delete from emp where empno=" + empno;
         Connection con = null;
         boolean flag = false;

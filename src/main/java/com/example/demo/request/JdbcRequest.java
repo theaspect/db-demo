@@ -25,6 +25,10 @@ public class JdbcRequest {
 
     public List<Employee> getJosh(){
         log.info("Querying for employee records where first_name = 'Josh':");
+
+        // Uncomment and go to http://localhost:8080/jdbc to dump schema
+        //jdbcTemplate.execute("SCRIPT TO './dump.sql'");
+
         return jdbcTemplate.query(
                 "SELECT id, first_name, last_name FROM employee WHERE first_name = ?",
                 new Object[] { "Josh" },
