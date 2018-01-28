@@ -6,8 +6,8 @@ import com.example.demo.domain.Organisation;
 import com.example.demo.request.dao.DepartmentRepository;
 import com.example.demo.request.dao.EmployeeRepository;
 import com.example.demo.request.dao.OrganisationRepository;
-import com.example.demo.request.slide_7_report_curr_date.ReportJdbcDao;
-import com.example.demo.request.slide_7_report_curr_date.ReportJpa;
+import com.example.demo.request.slide_7_report_x_case.ReportJdbcDao;
+import com.example.demo.request.slide_7_report_x_case.ReportJpa;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,7 +76,7 @@ public class EmployeeToDtoConverterTest {
 
     @Test
     public void report() throws Exception {
-        System.out.println(reportJpa.getReport());
+//        System.out.println(reportJpa.getReport());
         System.out.println(reportJdbcDao.getReport());
     }
 }
