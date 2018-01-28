@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("Duplicates")
 @Component
-public class EmloyeeJpaDao {
-    private static final Logger log = LoggerFactory.getLogger(EmloyeeJpaDao.class);
+public class EmloyeeJpaDao6 {
+    private static final Logger log = LoggerFactory.getLogger(EmloyeeJpaDao6.class);
 
     @PersistenceContext
     private EntityManager em;
@@ -71,7 +71,7 @@ public class EmloyeeJpaDao {
     @Transactional
     public Map<Long, Long> getContractsByEmployeeEagerest() {
         return SqlLogFilter.withCounter(() -> {
-            List<Department> pracache = em.createQuery("SELECT d FROM Department d LEFT JOIN FETCH d.organisation o", Department.class).getResultList();
+            List<Department> pracache = em.createQuery("SELECT d FROM Department d LEFT JOIN FETCH d.organization o", Department.class).getResultList();
             List<Employee> resultList = em.createQuery("SELECT e FROM Employee e LEFT JOIN FETCH e.clients c LEFT JOIN c.contracts cn", Employee.class).getResultList();
             log.info("RESULT COUNT {}", resultList.size());
 

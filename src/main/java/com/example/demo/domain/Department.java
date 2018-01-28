@@ -23,5 +23,5 @@ public class Department {
     private Set<Employee> employees;
 
     @ManyToOne
-    private Organisation organisation;
+    private Organization organization;
 }

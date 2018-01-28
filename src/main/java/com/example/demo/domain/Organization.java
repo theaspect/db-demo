@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Organisation {
+public class Organization {
 
     @Id
     @GeneratedValue

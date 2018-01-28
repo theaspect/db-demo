@@ -2,10 +2,10 @@ package com.example.demo.request.slide_5_lazy;
 
 import com.example.demo.domain.Department;
 import com.example.demo.domain.Employee;
-import com.example.demo.domain.Organisation;
+import com.example.demo.domain.Organization;
 import com.example.demo.request.dao.DepartmentRepository;
 import com.example.demo.request.dao.EmployeeRepository;
-import com.example.demo.request.dao.OrganisationRepository;
+import com.example.demo.request.dao.OrganizationRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class EmployeeToDtoConverterTest {
     DepartmentRepository departmentRepository;
 
     @Autowired
-    OrganisationRepository organisationRepository;
+    OrganizationRepository organizationRepository;
 
     @Autowired
     EmployeeToDtoConverter converter;
@@ -54,7 +54,7 @@ public class EmployeeToDtoConverterTest {
 
     @Test
     public void name2() throws Exception {
-        List<Organisation> all = organisationRepository.findAll();
+        List<Organization> all = organizationRepository.findAll();
         all.stream()
                 .peek(o -> System.out.println(o))
                 .flatMap(o -> o.getDepartments().stream())

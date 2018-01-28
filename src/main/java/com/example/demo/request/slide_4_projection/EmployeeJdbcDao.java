@@ -1,6 +1,7 @@
 package com.example.demo.request.slide_4_projection;
 
 import com.example.demo.domain.Employee;
+import com.example.demo.dto.ShortEmployeeDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,47 +12,27 @@ public class EmployeeJdbcDao {
 
     public void save(Employee employee) throws Exception {
         String sql = "insert into employee(id, first_mame, last_name, department_id) values(?, ?, ?, ?)";
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection con = getConnection()) {
+            PreparedStatement statement = con.prepareStatement(sql);
             statement.setLong(1, employee.getId());
             statement.setString(2, employee.getFirstName());
             statement.setString(3, employee.getLastName());
             statement.setLong(4, employee.getDepartment().getId());
             statement.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (Exception e) {
-            }
         }
     }
 
     public boolean update(Employee employee) throws Exception {
         String sql = "update employee set first_mame = ?, last_name = ?, department_id = ? where id = ?";
-        Connection connection = null;
         boolean flag = false;
-        try {
-            connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection con = getConnection()) {
+            PreparedStatement statement = con.prepareStatement(sql);
             statement.setString(1, employee.getFirstName());
             statement.setString(2, employee.getLastName());
             statement.setLong(3, employee.getDepartment().getId());
             statement.setLong(4, employee.getId());
             if (statement.executeUpdate(sql) > 0) {
                 flag = true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (Exception e) {
             }
         }
         return flag;
@@ -60,10 +41,7 @@ public class EmployeeJdbcDao {
     public String getById(int empNo) throws Exception {
         String sql = "select * from emp where empno=" + empNo;
         StringBuilder sb = new StringBuilder();
-        Connection con = null;
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "system", "manager");
+        try (Connection con = getConnection()) {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
@@ -74,14 +52,6 @@ public class EmployeeJdbcDao {
                 sb.append(rs.getDouble(3));
                 sb.append("t");
                 sb.append(rs.getInt(4));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (con != null)
-                    con.close();
-            } catch (Exception e) {
             }
         }
         return sb.toString();
@@ -121,12 +91,13 @@ public class EmployeeJdbcDao {
         String sql = "select * from employee where department_id = ?";
         Connection connection = null;
         Collection<Employee> result = new ArrayList<>();
-        try {
-            connection = getConnection();
+        try (Connection con = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery(sql);
-            result = mapToEmployee(resultSet);
+            while (resultSet.next()) {
+                result.add(mapRowToEmployee(resultSet));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -139,26 +110,18 @@ public class EmployeeJdbcDao {
         return result;
     }
 
-    public Collection<Employee> getCustomEmployeeByDepartmentId(int id) throws Exception {
+    public Collection<ShortEmployeeDto> getCustomEmployeeByDepartmentId(int id) throws Exception {
         String sql = "select id, first_name from employee where department_id = ?";
-        Connection connection = null;
-        Collection<Employee> result = new ArrayList<>();
-        try {
-            connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection con = getConnection()) {
+            Collection<ShortEmployeeDto> result = new ArrayList<>();
+            PreparedStatement statement = con.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery(sql);
-            result = mapToCustomEmployee(resultSet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (Exception e) {
+            while (resultSet.next()) {
+                result.add(mapRowToCustomEmployeeDto(resultSet));
             }
+            return result;
         }
-        return result;
     }
 
     private Collection<Employee> mapToCustomEmployee(ResultSet resultSet) {
@@ -194,7 +157,12 @@ public class EmployeeJdbcDao {
         return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "system", "manager");
     }
 
-    private Collection<Employee> mapToEmployee(ResultSet resultSet) {
+    private Employee mapRowToEmployee(ResultSet resultSet) {
+        System.out.printf("");
+        return null;
+    }
+
+    private ShortEmployeeDto mapRowToCustomEmployeeDto(ResultSet resultSet) {
         System.out.printf("");
         return null;
     }

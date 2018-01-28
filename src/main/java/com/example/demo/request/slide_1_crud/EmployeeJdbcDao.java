@@ -38,25 +38,23 @@ public class EmployeeJdbcDao extends BaseJdbcDao<Employee>{
         return flag;
     }
 
-    public String getById(Long empno) throws Exception {
-        String sql = "select * from emp where empno=" + empno;
-        StringBuilder sb = new StringBuilder();
+    public Employee getById(Long id) throws Exception {
+        String sql = "select id, first_name, last_name from employee where id=?";
         try (Connection con = getConnection()){
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setLong(1, id);
+            ResultSet rs = st.executeQuery();
+
             if (rs.next()) {
-                sb.append(rs.getInt(1));
-                sb.append("\t");
-                sb.append(rs.getString(2));
-                sb.append("\t");
-                sb.append(rs.getDouble(3));
-                sb.append("\t");
-                sb.append(rs.getInt(4));
+                Employee e = new Employee();
+                e.setId(rs.getLong(1));
+                e.setFirstName(rs.getString(2));
+                e.setLastName(rs.getString(3));
+                return e;
+            }else{
+                return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return sb.toString();
     }
 
     public String getAll() throws Exception {

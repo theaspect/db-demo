@@ -32,9 +32,10 @@ public class EmloyeeJpaDao {
     }
 
     public Collection<Employee> getByDepartment(Department department) {
-        Query query = em.createQuery("SELECT e FROM Employee e WHERE e.department.id = :departmentId");
+        Query query = em.createQuery("SELECT e FROM Employee e " +
+                "WHERE e.department.id = :departmentId", Employee.class);
         query.setParameter("departmentId", department.getId());
-        return (Collection<Employee>) query.getResultList();
+        return query.getResultList();
     }
 
     public void delete(Integer id) {

@@ -3,7 +3,10 @@ package com.example.demo.request.slide_3_where;
 import com.example.demo.domain.Employee;
 import com.example.demo.request.dao.BaseJdbcDao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -86,17 +89,18 @@ public class EmployeeJdbcDao extends BaseJdbcDao<Employee>{
     }
 
     public Collection<Employee> getByDepartmentId(int id) throws Exception {
-        String sql = "select * from employee where department_id = ?";
-        Collection<Employee> result = new ArrayList<>();
+        String sql = "select id, first_name, last_name, birtday " +
+                "from employee where department_id = ?";
         try (Connection con = getConnection()){
+            Collection<Employee> result = new ArrayList<>();
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery(sql);
-            result = mapToEmployee(resultSet);
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (resultSet.next()) {
+                result.add(mapRowToEmployee(resultSet));
+            }
+            return result;
         }
-        return result;
     }
 
     public boolean delete(Long empno) throws Exception {
@@ -113,7 +117,7 @@ public class EmployeeJdbcDao extends BaseJdbcDao<Employee>{
         return flag;
     }
 
-    private Collection<Employee> mapToEmployee(ResultSet resultSet) {
+    private Employee mapRowToEmployee(ResultSet resultSet) {
         System.out.printf("");
         return null;
     }

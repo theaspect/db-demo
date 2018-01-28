@@ -1,11 +1,11 @@
 -- fake data generated from http://www.fakeaddressgenerator.com
 
-CREATE TABLE organisation (
+CREATE TABLE organization (
   id         BIGINT SERIAL PRIMARY KEY,
   name       VARCHAR(255)
 );
 
-INSERT INTO organisation(name) VALUES
+INSERT INTO organization(name) VALUES
   ('BadCurve'),
   ('Gfromit'),
   ('OmegaInsurance');
@@ -14,11 +14,11 @@ INSERT INTO organisation(name) VALUES
 -- DROP TABLE department IF EXISTS;
 CREATE TABLE department (
   id         BIGINT SERIAL PRIMARY KEY,
-  organisation_id BIGINT,
+  organization_id BIGINT,
   name       VARCHAR(255)
 );
 
-INSERT INTO department(name, organisation_id) VALUES
+INSERT INTO department(name, organization_id) VALUES
   ('Sales', 1),
   ('Marketing', 1),
   ('Development', 1),
@@ -40,6 +40,7 @@ CREATE TABLE employee(
   id            BIGINT SERIAL PRIMARY KEY,
   first_name    VARCHAR(255),
   last_name     VARCHAR(255),
+  birtday       TIMESTAMP,
   department_id BIGINT,
   CONSTRAINT "employee_department_id" FOREIGN KEY (department_id) REFERENCES department (id)
 );

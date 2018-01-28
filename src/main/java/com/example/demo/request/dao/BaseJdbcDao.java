@@ -33,7 +33,7 @@ public abstract class BaseJdbcDao<T> {
     public abstract boolean delete(Long id) throws Exception;
 
     // FIXME This is for demo
-    public abstract String getById(Long id) throws Exception;
+    //public abstract String getById(Long id) throws Exception;
     // FIXME This is for demo
     public abstract String getAll() throws Exception;
 

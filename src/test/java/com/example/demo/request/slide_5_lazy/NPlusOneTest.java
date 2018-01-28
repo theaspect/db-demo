@@ -1,6 +1,6 @@
 package com.example.demo.request.slide_5_lazy;
 
-import com.example.demo.request.slide_6_nplus1.EmloyeeJpaDao;
+import com.example.demo.request.slide_6_nplus1.EmloyeeJpaDao6;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class NPlusOneTest {
 
     @Autowired
-    EmloyeeJpaDao emloyeeJpaDao;
+    EmloyeeJpaDao6 emloyeeJpaDao;
 
     @Test
     public void testEmployeeConverter() throws Exception {
