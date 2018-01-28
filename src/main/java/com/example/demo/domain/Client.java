@@ -1,15 +1,23 @@
 package com.example.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
-@Getter
-@Setter
+@Data
+
+@ToString(exclude = "contracts")
+@EqualsAndHashCode(exclude = "contracts")
+
 @Entity
 public class Client {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -21,9 +29,9 @@ public class Client {
     private String state;
     private String zipcode;
 
-    @ManyToOne
-    private Employee account;
+//    @ManyToOne
+//    private Employee account;
 
     @OneToMany(mappedBy = "client")
-    private List<Contract> contracts;
+    private Set<Contract> contracts;
 }

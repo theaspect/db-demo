@@ -1,7 +1,6 @@
 package com.example.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class Transaction {
+
     @Id
     @GeneratedValue
     private Long id;

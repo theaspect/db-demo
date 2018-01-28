@@ -6,6 +6,8 @@ import com.example.demo.domain.Organisation;
 import com.example.demo.request.dao.DepartmentRepository;
 import com.example.demo.request.dao.EmployeeRepository;
 import com.example.demo.request.dao.OrganisationRepository;
+import com.example.demo.request.slide_7_report_curr_date.ReportJdbcDao;
+import com.example.demo.request.slide_7_report_curr_date.ReportJpa;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +41,12 @@ public class EmployeeToDtoConverterTest {
     @Autowired
     EmployeeToDtoConverter converter;
 
+    @Autowired
+    ReportJpa reportJpa;
+
+    @Autowired
+    ReportJdbcDao reportJdbcDao;
+
     @Test
     public void testEmployeeConverter() throws Exception {
         Collection<Employee> employees = repository.findAll();
@@ -64,5 +72,11 @@ public class EmployeeToDtoConverterTest {
                 .peek(d -> System.out.println(d))
                 .flatMap(d -> d.getEmployees().stream())
                 .forEach(e -> System.out.println(e));
+    }
+
+    @Test
+    public void report() throws Exception {
+        System.out.println(reportJpa.getReport());
+        System.out.println(reportJdbcDao.getReport());
     }
 }

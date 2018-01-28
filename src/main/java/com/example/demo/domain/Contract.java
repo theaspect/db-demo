@@ -1,15 +1,17 @@
 package com.example.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+
+@ToString(exclude = "transactions")
+@EqualsAndHashCode(exclude = "transactions")
+
 @Entity
 public class Contract {
     @Id
@@ -24,8 +26,8 @@ public class Contract {
     @ManyToOne
     private Client client;
 
-    @ManyToOne
-    private Employee account;
+//    @ManyToOne
+//    private Employee account;
 
     @OneToMany(mappedBy = "contract")
     private List<Transaction> transactions = new ArrayList<>();
