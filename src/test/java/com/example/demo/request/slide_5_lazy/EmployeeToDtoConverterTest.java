@@ -53,12 +53,10 @@ public class EmployeeToDtoConverterTest {
     }
 
     @Test
-    public void name2() throws Exception {
+    public void getAllOrganisation() throws Exception {
         List<Organisation> all = organisationRepository.findAll();
         all.stream()
-                .peek(o -> System.out.println(o))
                 .flatMap(o -> o.getDepartments().stream())
-                .peek(d -> System.out.println(d))
                 .flatMap(d -> d.getEmployees().stream())
                 .forEach(e -> System.out.println(e));
         System.out.println(all);

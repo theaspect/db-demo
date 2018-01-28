@@ -1,19 +1,19 @@
 package com.example.demo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
+@ToString(exclude = "employees")
+@EqualsAndHashCode(exclude = "employees")
+
 @Entity
-// Break JSON recursion
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Department {
 
     @Id
@@ -21,44 +21,10 @@ public class Department {
     private Long id;
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Employee> employees;
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    private List<Employee> employees;
 
     @ManyToOne
+    @JoinColumn(name = "organisation_id", referencedColumnName = "id", nullable = false)
     private Organisation organisation;
-
-    public Department() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Collection<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public Organisation getOrganisation() {
-        return organisation;
-    }
-
-    public void setOrganisation(Organisation organisation) {
-        this.organisation = organisation;
-    }
 }

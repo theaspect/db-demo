@@ -1,8 +1,16 @@
 package com.example.demo.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
+@ToString(exclude = "departments")
+@EqualsAndHashCode(exclude = "departments")
 
 @Entity
 public class Organisation {
@@ -13,33 +21,7 @@ public class Organisation {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Department> departments;
+    @OneToMany(mappedBy = "organisation", fetch = FetchType.LAZY)
+    private List<Department> departments;
 
-    public Organisation() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Collection<Department> getDepartments() {
-        return departments;
-    }
-
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
-    }
 }

@@ -2,20 +2,20 @@ package com.example.demo;
 
 import com.example.demo.domain.Department;
 import com.example.demo.domain.Employee;
+import com.example.demo.domain.Organisation;
 import com.example.demo.request.JdbcRequest;
 import com.example.demo.request.JpaRequest;
+import com.example.demo.request.dao.OrganisationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping(value = "/", produces = {"application/json; charset=UTF-8"})
 public class DefaultController {
 
     @Autowired
@@ -23,6 +23,9 @@ public class DefaultController {
 
     @Autowired
     JpaRequest jpaRequest;
+
+    @Autowired
+    OrganisationRepository organisationRepository;
 
     @RequestMapping("/page")
     public String page() {
@@ -64,5 +67,10 @@ public class DefaultController {
     public @ResponseBody
     Employee nsql(@RequestParam(defaultValue = "0") Long id) {
         return jpaRequest.getManagerByDepartment(id);
+    }
+
+    @RequestMapping(path = "/organisations", method = RequestMethod.GET)
+    public @ResponseBody Organisation getAllOrganisations() {
+        return organisationRepository.findOne(1L);
     }
 }

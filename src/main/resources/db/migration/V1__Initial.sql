@@ -15,7 +15,8 @@ INSERT INTO organisation(name) VALUES
 CREATE TABLE department (
   id         BIGINT SERIAL PRIMARY KEY,
   organisation_id BIGINT,
-  name       VARCHAR(255)
+  name       VARCHAR(255),
+  CONSTRAINT "department_organisation_id" FOREIGN KEY (organisation_id) REFERENCES organisation (id)
 );
 
 INSERT INTO department(name, organisation_id) VALUES
