@@ -1,6 +1,8 @@
 package com.example.demo.request.slide_5_lazy;
 
-import com.example.demo.request.slide_6_nplus1.EmloyeeJpaDao6;
+import com.example.demo.request.slide_4_projection.EmployeeJdbcDao;
+import com.example.demo.request.slide_5_nplus1.EmloyeeJpaDao6;
+import com.example.demo.request.slide_5_nplus1.EmployeeJpaService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SuppressWarnings("ALL")
 @SpringBootTest
@@ -19,6 +23,37 @@ public class NPlusOneTest {
 
     @Autowired
     EmloyeeJpaDao6 emloyeeJpaDao;
+
+    @Autowired
+    EmployeeJpaService employeeService;
+
+    @Test(expected = org.hibernate.LazyInitializationException.class)
+    public void naiveOrm() throws Exception {
+        employeeService.getContractsByEmployee();
+    }
+
+    @Test
+    public void testJdbc() throws Exception {
+        assertEquals(new EmployeeJdbcDao().getContractsByEmployee().size(), 33);
+    }
+
+    @Test
+    public void testSanki() throws Exception {
+        assertEquals(new EmployeeJdbcDao().getSankiReport().size(), 40);
+    }
+
+    @Test
+    public void testSankiFutures() throws Exception {
+        assertEquals(emloyeeJpaDao.getSankiReport().size(), 40);
+    }
+
+    @Test
+    public void testAggregate() throws Exception {
+        // *** In thread main executed 49 queries 64 ms
+        final Map<Long, Long> contractsByEmployee = emloyeeJpaDao.getContractsByEmployeeAgg();
+
+        Assert.assertTrue(contractsByEmployee.size() == 33);
+    }
 
     @Test
     public void testEmployeeConverter() throws Exception {

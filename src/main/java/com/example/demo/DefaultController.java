@@ -37,10 +37,10 @@ public class DefaultController {
                 }});
     }
 
-//    @RequestMapping(path = "/jdbc", method = RequestMethod.GET)
-//    public @ResponseBody List<Employee> jdbc() {
-//        return jdbcRequest.getJosh();
-//    }
+    @RequestMapping(path = "/jdbc", method = RequestMethod.GET)
+    public @ResponseBody List<Employee> jdbc() {
+        return jdbcRequest.getJosh();
+    }
 
     @RequestMapping(path = "/repository", method = RequestMethod.GET)
     public @ResponseBody

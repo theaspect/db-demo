@@ -21,6 +21,9 @@ public class Contract {
 
     private Long amount;
 
+    @Enumerated(EnumType.STRING)
+    private ContractType contractType;
+
     @ManyToOne
     private Client client;
 

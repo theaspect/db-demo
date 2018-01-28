@@ -1,14 +1,15 @@
 package com.example.demo.request.slide_4_projection;
 
 import com.example.demo.domain.Employee;
+import com.example.demo.dto.SankiDto;
 import com.example.demo.dto.ShortEmployeeDto;
+import com.example.demo.request.dao.BaseJdbcDao;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 @SuppressWarnings("ALL")
-public class EmployeeJdbcDao {
+public class EmployeeJdbcDao extends BaseJdbcDao<Employee> {
 
     public void save(Employee employee) throws Exception {
         String sql = "insert into employee(id, first_mame, last_name, department_id) values(?, ?, ?, ?)";
@@ -110,6 +111,25 @@ public class EmployeeJdbcDao {
         return result;
     }
 
+    public Map<Long, Long> getContractsByEmployee() throws Exception {
+        String sql = "SELECT e.id, COUNT(ct.id) FROM employee e " +
+                "LEFT JOIN client c on c.account_id=e.id " +
+                "LEFT JOIN contract ct on ct.client_id = c.id " +
+                "GROUP BY e.id";
+        try (Connection con = getConnection()) {
+            Map<Long, Long> result = new HashMap<>();
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result.put(
+                        resultSet.getLong(1),
+                        resultSet.getLong(2));
+            }
+            return result;
+        }
+    }
+
+
     public Collection<ShortEmployeeDto> getCustomEmployeeByDepartmentId(int id) throws Exception {
         String sql = "select id, first_name from employee where department_id = ?";
         try (Connection con = getConnection()) {
@@ -129,7 +149,7 @@ public class EmployeeJdbcDao {
         return null;
     }
 
-    public boolean delete(int empno) throws Exception {
+    public boolean delete(Long empno) throws Exception {
         String sql = "delete from emp where empno=" + empno;
         Connection con = null;
         boolean flag = false;
@@ -152,11 +172,6 @@ public class EmployeeJdbcDao {
         return flag;
     }
 
-    private Connection getConnection() throws Exception {
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "system", "manager");
-    }
-
     private Employee mapRowToEmployee(ResultSet resultSet) {
         System.out.printf("");
         return null;
@@ -165,5 +180,26 @@ public class EmployeeJdbcDao {
     private ShortEmployeeDto mapRowToCustomEmployeeDto(ResultSet resultSet) {
         System.out.printf("");
         return null;
+    }
+
+    public List<SankiDto> getSankiReport() throws Exception {
+        String sql = "SELECT cl.name, c.amount, c.contract_type from contract c " +
+                "join client cl on c.client_id = cl.id " +
+                "UNION ALL " +
+                "select c.contract_type, c.amount, " +
+                "e.first_name || ' ' || e.last_name from contract c " +
+                "join employee e on c.account_id = e.id";
+        try (Connection conn = getConnection()) {
+            List<SankiDto> result = new LinkedList<>();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(new SankiDto(
+                        rs.getString(1),
+                        rs.getLong(2),
+                        rs.getString(3)));
+            }
+            return result;
+        }
     }
 }

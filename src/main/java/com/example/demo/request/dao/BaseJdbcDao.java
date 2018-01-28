@@ -14,7 +14,7 @@ public abstract class BaseJdbcDao<T> {
 
     static {
         // Initialize once and for all JdbcDao classes
-        try (InputStream is = BaseJdbcDao.class.getClassLoader()
+        try (InputStream is = BaseJdbcDao.class
                 .getResourceAsStream("/application.properties")) {
             Properties prop = new Properties();
             prop.load(is);
@@ -35,7 +35,7 @@ public abstract class BaseJdbcDao<T> {
     // FIXME This is for demo
     //public abstract String getById(Long id) throws Exception;
     // FIXME This is for demo
-    public abstract String getAll() throws Exception;
+    //public abstract String getAll() throws Exception;
 
     protected Connection getConnection() throws Exception {
         Class.forName(driver);

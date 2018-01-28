@@ -13,15 +13,12 @@ import java.util.Set;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Employee {
-
     @Id
     @GeneratedValue
     private Long id;
 
     private String firstName;
-
     private String lastName;
-
     private Date birthday;
 
     @ManyToOne
@@ -30,4 +27,7 @@ public class Employee {
     @OneToMany(mappedBy = "account")
     private Set<Client> clients = new HashSet<>();
 
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }
