@@ -3,7 +3,7 @@ package com.example.demo.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +22,6 @@ public class Organisation {
     private String name;
 
     @OneToMany(mappedBy = "organisation", fetch = FetchType.LAZY)
-    private List<Department> departments;
+    private Set<Department> departments;
 
 }

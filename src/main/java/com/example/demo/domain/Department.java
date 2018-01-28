@@ -3,7 +3,6 @@ package com.example.demo.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,7 +21,7 @@ public class Department {
     private String name;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
-    private List<Employee> employees;
+    private Set<Employee> employees;
 
     @ManyToOne
     @JoinColumn(name = "organisation_id", referencedColumnName = "id", nullable = false)

@@ -34,6 +34,9 @@ public class EmployeeToDtoConverterTest {
     OrganisationRepository organisationRepository;
 
     @Autowired
+    OrganisationDao organisationDao;
+
+    @Autowired
     EmployeeToDtoConverter converter;
 
     @Test
@@ -54,11 +57,12 @@ public class EmployeeToDtoConverterTest {
 
     @Test
     public void getAllOrganisation() throws Exception {
-        List<Organisation> all = organisationRepository.findAll();
+        Collection<Organisation> all = organisationDao.findAllAndFetch();
         all.stream()
+                .peek(o -> System.out.println(o))
                 .flatMap(o -> o.getDepartments().stream())
+                .peek(d -> System.out.println(d))
                 .flatMap(d -> d.getEmployees().stream())
                 .forEach(e -> System.out.println(e));
-        System.out.println(all);
     }
 }
