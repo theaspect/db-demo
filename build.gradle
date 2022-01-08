@@ -15,7 +15,7 @@ buildscript {
 
         // Build artifact directly into docker
         classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.22.2"
-        classpath "io.franzbecker:gradle-lombok:1.11"
+        classpath "io.franzbecker:gradle-lombok:5.0.0"
     }
 }
 
